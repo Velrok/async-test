@@ -10,6 +10,6 @@
                  [extra-time "0.1.1"]
                  [incanter "1.5.1"]]
   :profiles {:dev {:dependencies [[speclj "2.5.0"]]}}
-  :main async-test.core
+  :main async-test.graphs
   :plugins [[speclj "2.5.0"]]
   :test-paths ["spec"])
