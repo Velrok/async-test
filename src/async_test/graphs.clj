@@ -53,9 +53,11 @@
        (incanter/$ [:exec-strat :series])
        :rows
        (map #(rename-keys % {:exec-strat :label
-                         :series :x}))
+                             :series :x}))
        (box-plot-series (str load-type " load"))
        incanter/view))
+
+(def last-graphs (atom {}))
 
 (defn fire []
   (let [problem-size 30
@@ -63,9 +65,9 @@
         last-run (incanter/to-dataset
                    (core/run-test-suit iterations
                                        problem-size))]
-    (incanter/view (create-loads-plot problem-size))
-    (incanter/view last-run)
-    (plot-load-type :incremental last-run)
-    (plot-load-type :decremental last-run)
-    (plot-load-type :random last-run)
-    (plot-load-type :random last-run)))
+    (reset! last-graphs
+      {:work-loads  (create-loads-plot problem-size)
+       :data-set    last-run
+       :incremental (:incremental last-run)
+       :decremental (:decremental last-run)
+       :random      (:random last-run)})))
