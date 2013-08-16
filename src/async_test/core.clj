@@ -1,5 +1,7 @@
 (ns async-test.core
-  (:require [criterium.core :as citerium]))
+  (:require [criterium.core :as criterium]
+            [async-test.execution-strategie :as exec-strat]
+            [async-test.load :as work-load]))
 
 
 ; ---- helper functions
@@ -10,7 +12,19 @@
   (Thread/sleep wait-ms)
   wait-ms)
 
-
+(defn fire []
+  (criterium/with-progress-reporting
+    (let [problem-size 5]
+      (doall
+        (for [[load-type load] [[:incremental (work-load/increasing problem-size)]
+                                [:decremental (work-load/decreasing problem-size)]
+                                [:random      (work-load/random     problem-size)]]
+              [strat-type strat] [[:pmap  exec-strat/pmap-apply ]
+                                  [:async exec-strat/async-apply]
+                                  [:plain exec-strat/plain-apply]]]
+          (do
+            (println ">>>>> " problem-size "-" load-type "-" strat-type)
+            (criterium/bench (strat slow-fn load))))))))
 
 
 ;--- run performance tests
