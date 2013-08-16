@@ -58,7 +58,7 @@
        incanter/view))
 
 (defn fire []
-  (let [problem-size 10
+  (let [problem-size 30
         iterations 5
         last-run (incanter/to-dataset
                    (core/run-test-suit iterations

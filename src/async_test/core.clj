@@ -44,9 +44,11 @@
 (defn pmap-apply [f coll]
   (pmap f coll))
 
+
 (defn async-apply [f coll]
-  (let [r-chans (for [i coll]
-                  (go (f i)))]
+  (let [r-chans (doall
+                  (for [i coll]
+                    (go (f i))))]
     (for [c r-chans]
       (<!! c))))
 
