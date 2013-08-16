@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/core.async "0.1.0-SNAPSHOT"]
                  [org.clojure/math.numeric-tower "0.0.2"]
+                 [criterium "0.4.1"]
                  [extra-time "0.1.1"]
                  [incanter "1.5.1"]]
   :profiles {:dev {:dependencies [[speclj "2.5.0"]]}}

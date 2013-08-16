@@ -1,6 +1,7 @@
-(ns async-test.core-spec
-  (:use [async-test.core]
-        [speclj.core]))
+(ns async-test.execution-strategie-spec
+  (:require [async-test.core :refer [slow-fn]]
+            [speclj.core :refer :all]
+            [async-test.execution-strategie :refer :all]))
 
 (describe "test funtions"
   (with input (range 30))
